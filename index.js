@@ -4,6 +4,10 @@ const app = express()
 
 // Route for getting an array of n unique random numbers from a list of K integers. K>=n
 
+app.get('/', (req,res) => {
+    res.json(["Welcome to the unique random number generator", "use /uniqueRandom/:maxNum/:numSelect to generate an array of unique random numbers in the range of 1-maxNum both included"])
+})
+
 app.get('/uniqueRandom/:maxNum/:numSelect', (req,res) => {
     try{
         var {maxNum: maximumNumber, numSelect: numberToSelect} = req.params
