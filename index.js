@@ -1,4 +1,4 @@
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 const express = require('express')
 const app = express()
 
@@ -34,8 +34,6 @@ function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
         j = i + 1
         if(j==numSelect){j = 0}
         finalNumberArray.push(Math.floor(posRealRandGen(maxNum,limits_array[i],limits_array[j])) + 1)
-        //The code below could have been used but it runs into the issue of overshooting by rounding
-        // finalNumberArray.push(Math.floor(posRealRandGen(maxNum, cyclicIncrement(maxNum,cyclicIncrement(maxNum, firstRand, (i*partSize)),1),cyclicIncrement(maxNum, firstRand, ((i+1)*partSize)))))
     }
     return finalNumberArray
 }
