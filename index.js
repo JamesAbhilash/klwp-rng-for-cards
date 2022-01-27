@@ -24,11 +24,18 @@ app.get('/uniqueRandom/:maxNum/:numSelect', (req,res) => {
 // Unique Random Number Generator Function
 function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
     const partSize = maxNum/numSelect
-    console.log(partSize)
     const firstRand = (Math.random() * (maxNum)) + 1
+    const limits_array = []
+    for (i=1; i<=numSelect; i++){
+        limits_array.push(cyclicIncrement(maxNum,(partSize*i),firstRand))
+    }
     const finalNumberArray = []
     for(i=0; i<numSelect; i++){
-        finalNumberArray.push(Math.floor(posRealRandGen(maxNum, cyclicIncrement(maxNum,cyclicIncrement(maxNum, firstRand, (i*partSize)),1),cyclicIncrement(maxNum, firstRand, ((i+1)*partSize)))))
+        j = i + 1
+        if(j==numSelect){j = 0}
+        finalNumberArray.push(Math.floor(posRealRandGen(maxNum,limits_array[i],limits_array[j])) + 1)
+        //The code below could have been used but it runs into the issue of overshooting by rounding
+        // finalNumberArray.push(Math.floor(posRealRandGen(maxNum, cyclicIncrement(maxNum,cyclicIncrement(maxNum, firstRand, (i*partSize)),1),cyclicIncrement(maxNum, firstRand, ((i+1)*partSize)))))
     }
     return finalNumberArray
 }
