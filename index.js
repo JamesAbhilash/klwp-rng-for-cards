@@ -24,6 +24,22 @@ app.get('/uniqueRandom/:maxNum/:numSelect', (req,res) => {
     }  
 })
 
+app.get('/uniqueRandomLabled/:maxNum/:numSelect', (req,res) => {
+    try{
+        var {maxNum: maximumNumber, numSelect: numberToSelect} = req.params
+        maximumNumber = parseInt(maximumNumber)
+        numberToSelect = parseInt(numberToSelect)
+        // GC01 to check whether K>=n
+        if(maximumNumber < numberToSelect){ res.json(["You need to choose a number lesser than the maximum number"])}
+        else{
+            res.json(uniqueRandomNumberListLabled(maximumNumber,numberToSelect))
+        }
+    }
+    catch(error){
+        console.log(error)
+    }  
+})
+
 
 // Unique Random Number Generator Function
 function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
@@ -37,7 +53,26 @@ function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
     for(i=0; i<numSelect; i++){
         j = i + 1
         if(j==numSelect){j = 0}
+        numName = "num"+(i+1)
         finalNumberArray.push(Math.floor(posRealRandGen(maxNum,limits_array[i],limits_array[j])) + 1)
+    }
+    return finalNumberArray
+}
+
+// Unique Random Number Generator Function Labled
+function uniqueRandomNumberListLabled(maxNum = 52, numSelect = 4){
+    const partSize = maxNum/numSelect
+    const firstRand = (Math.random() * (maxNum)) + 1
+    const limits_array = []
+    for (i=1; i<=numSelect; i++){
+        limits_array.push(cyclicIncrement(maxNum,(partSize*i),firstRand))
+    }
+    const finalNumberArray = []
+    for(i=0; i<numSelect; i++){
+        j = i + 1
+        if(j==numSelect){j = 0}
+        numName = "num"+(i+1)
+        finalNumberArray.push(numName + "_" + (Math.floor(posRealRandGen(maxNum,limits_array[i],limits_array[j])) + 1))
     }
     return finalNumberArray
 }
