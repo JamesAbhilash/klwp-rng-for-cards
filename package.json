@@ -1,0 +1,17 @@
+{
+  "name": "j_api_rng",
+  "version": "1.0.0",
+  "description": "Random Number Generator API",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon index.js"
+  },
+  "author": "James Abhilash",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
