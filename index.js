@@ -56,7 +56,37 @@ app.get('/uniqueRandomLabledShImp/:maxNum/:numSelect', (req,res) => {
     }
 })
 
+app.get('/uniqueRandomLabledArrayImp/:maxNum/:numSelect',(req,res)  => {
+    try{
+        var {maxNum: maximumNumber, numSelect: numberToSelect} = req.params
+        maximumNumber = parseInt(maximumNumber)
+        numberToSelect = parseInt(numberToSelect)
+        // GC01 to check whether K>=n
+        if(maximumNumber < numberToSelect){ res.json(["You need to choose a number lesser than the maximum number"])}
+        else{
+            res.json(uniqueRandomNumberListLabledArrayImp(maximumNumber,numberToSelect))
+        }   
+    }
+    catch(error){
+        console.log(error)
+    }
+})
 
+// Unique Random Number Generator Function with Array Implementation
+function uniqueRandomNumberListLabledArrayImp(maxNum = 52, numSelect = 4){
+    const mainNumberArray = [...Array(maxNum).keys()]
+    const finalNumberArray = []
+    const maximumNumber = maxNum
+    for (i=0; i<numSelect ; i++){
+        const randomIndex = Math.floor(Math.random()*(maxNum - 1))
+        numName = "num" + (i + 1)
+        finalNumberArray.push(numName + "_" + (cyclicIncrement(maximumNumber, mainNumberArray[randomIndex], 1)))
+        mainNumberArray.splice(randomIndex, 1)
+        maxNum = maxNum - 1
+    }
+    return finalNumberArray
+
+}
 // Unique Random Number Generator Function
 function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
     const partSize = maxNum/numSelect
