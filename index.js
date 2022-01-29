@@ -40,7 +40,7 @@ app.get('/uniqueRandomLabled/:maxNum/:numSelect', (req,res) => {
     }  
 })
 
-app.get('uniqueRandomLabledShImp/:maxNum/:numSelect', (req,res) => {
+app.get('/uniqueRandomLabledShImp/:maxNum/:numSelect', (req,res) => {
     try{
         var {maxNum: maximumNumber, numSelect: numberToSelect} = req.params
         maximumNumber = parseInt(maximumNumber)
