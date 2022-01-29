@@ -40,6 +40,22 @@ app.get('/uniqueRandomLabled/:maxNum/:numSelect', (req,res) => {
     }  
 })
 
+app.get('uniqueRandomLabled/:maxNum/:numSelect', (req,res) => {
+    try{
+        var {maxNum: maximumNumber, numSelect: numberToSelect} = req.params
+        maximumNumber = parseInt(maximumNumber)
+        numberToSelect = parseInt(numberToSelect)
+        // GC01 to check whether K>=n
+        if(maximumNumber < numberToSelect){ res.json(["You need to choose a number lesser than the maximum number"])}
+        else{
+            res.json(uniqueRandomNumberListLabled(maximumNumber,numberToSelect))
+        }
+    }
+    catch(error){
+        console.log(error)
+    }
+})
+
 
 // Unique Random Number Generator Function
 function uniqueRandomNumberList(maxNum = 52, numSelect = 4){
